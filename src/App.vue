@@ -12,12 +12,12 @@
 
       <v-list dense>
         <v-list-item-group color="primary">
-          <v-list-item>
+          <v-list-item v-for="link in links" :key="link.title">
             <v-list-item-icon>
-              <v-icon>mdi-cake-variant</v-icon>
+              <v-icon>{{ link.icon }}</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>Link One</v-list-item-title>
+              <v-list-item-title>{{ link.title }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
@@ -28,9 +28,10 @@
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn text><v-icon left>mdi-cake-variant</v-icon>Link One</v-btn>
-        <v-btn text><v-icon left>mdi-anchor</v-icon>Link Two</v-btn>
-        <v-btn text><v-icon left>mdi-flower-tulip</v-icon>Link Three</v-btn>
+        <v-btn v-for="link in links" :key="link.title" text
+          ><v-icon left>{{ link.icon }}</v-icon
+          >{{ link.title }}</v-btn
+        >
       </v-toolbar-items>
     </v-app-bar>
     <v-content>
@@ -44,7 +45,21 @@ export default {
   data() {
     return {
       drawer: false,
-      sanya: 1,
+      links: [
+        { title: "Login", icon: "mdi-lock", url: "/login" },
+        {
+          title: "Registration",
+          icon: "mdi-face-recognition",
+          url: "/registration",
+        },
+        {
+          title: "Orders",
+          icon: "mdi-bookmark-multiple-outline",
+          url: "/orders",
+        },
+        { title: "New ad", icon: "mdi-note-plus-outline", url: "/new" },
+        { title: "My ads", icon: "mdi-view-list-outline", url: "/list" },
+      ],
     };
   },
 };
