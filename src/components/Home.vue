@@ -42,6 +42,7 @@
 export default {
   computed: {
     promoAds() {
+      console.log(this.$store.getters.promoAds);
       return this.$store.getters.promoAds;
     },
     ads() {
