@@ -78,7 +78,7 @@ export default {
           title: this.title,
           desc: this.description,
           promo: this.promo,
-          src: "https://cdn.vuetifyjs.com/images/cards/cooking.png"
+          src:"https://picsum.photos/id/11/500/300"
         };
         console.log(ad);
       }
