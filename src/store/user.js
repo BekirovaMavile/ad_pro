@@ -43,6 +43,10 @@ async loginUser({commit},{email, password}){
 throw error
 	}
 },
+logoutUser ({commit}) {
+fb.auth().signOut()
+	commit('setUser', null)
+},
 autoLoginUser({commit},uid){
 commit('setUser', new User(uid))
 }
