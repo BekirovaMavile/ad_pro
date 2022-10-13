@@ -39,6 +39,18 @@
             </v-btn>
           </v-card-actions>
         </v-card>
+        <template v-if="error">
+          <v-snackbar
+            :timeout="5000"
+            :multi-line="true"
+            color="error"
+            @input="closeError"
+            :value="true"
+          >
+            {{ error }}
+            <v-btn text dark @click.native="closeError">Close</v-btn>
+          </v-snackbar>
+        </template>
       </v-flex>
     </v-layout>
   </v-container>
@@ -65,6 +77,9 @@ export default {
   computed: {
     loading() {
       return this.$store.getters.loading;
+    },
+    error() {
+      return this.$store.getters.error;
     },
   },
   methods: {
