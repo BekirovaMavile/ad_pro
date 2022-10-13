@@ -32,5 +32,8 @@ fb.initializeApp(firebaseConfig);
   fb.analytics();
 // const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
+fb.auth().onAuthStateChanged(user => {
+  		//здесь можно обновить пользователя в store
+  })
   }
 }).$mount('#app')
