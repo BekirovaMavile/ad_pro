@@ -35,6 +35,7 @@ async loginUser({commit},{email, password}){
 	try {
 		const response = await 
         fb.auth().signInWithEmailAndPassword(email,password)
+        // console.log(response.user.uid)
 		commit('setUser', new User(response.user.uid))
 		commit('setLoading', false)
 	} catch (error) {
