@@ -35,5 +35,6 @@ fb.initializeApp(firebaseConfig);
 fb.auth().onAuthStateChanged(user => {
   		//здесь можно обновить пользователя в store
   })
+  this.$store.dispatch('fetchAds')
   }
 }).$mount('#app')
