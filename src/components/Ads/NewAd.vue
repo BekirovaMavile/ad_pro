@@ -25,10 +25,17 @@
         <v-layout row>
           <!-- начало первого блока -->
           <v-flex xs12>
-            <v-btn class="mt-3" color="warning">
+            <v-btn class="mt-3" color="warning" @click="triggerUpload">
               Upload
               <v-icon right dark>mdi-cloud- upload</v-icon>
             </v-btn>
+            <input
+              ref="fileInput"
+              type="file"
+              style="display: none"
+              accept="image/*"
+              @change="onFileChange"
+            />
           </v-flex>
         </v-layout>
         <!-- конец первого блока -->
@@ -83,6 +90,10 @@ export default {
     },
   },
   methods: {
+    triggerUpload() {
+      this.$refs.fileInput.click();
+    },
+
     createAd() {
       if (this.$refs.form.validate()) {
         const ad = {
