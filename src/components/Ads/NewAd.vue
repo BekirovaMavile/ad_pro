@@ -98,7 +98,7 @@ export default {
           title: this.title,
           desc: this.description,
           promo: this.promo,
-          src: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
+          image: this.image
         };
         this.$store
           .dispatch("createAd", ad)
