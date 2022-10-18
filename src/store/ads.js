@@ -49,7 +49,14 @@ export default {
 		},
 		loadAds (state, payload) {
 		state.ads = payload
-}
+},
+		updateAd (state, {title, desc, id}) {
+	    const ad = state.ads.find(a => {
+	    	return a.id === id
+	    })
+		ad.title = title
+	    ad.desc = desc
+	    }
 	},
 	actions: {
 		// createAd({commit},payload){
@@ -90,38 +97,50 @@ export default {
 		throw error
 	}
 },
-async fetchAds({commit}) {
-    		commit('clearError')
+	async fetchAds({commit}) {
+    	commit('clearError')
       	commit('setLoading', true)
-      	try {
+    try {
       		//Здесь запрос к базе данных
-			  const fbVal = await fb.database().ref('ads').once('value')
-const ads = fbVal.val()
-console.log(ads)
+	const fbVal = await fb.database().ref('ads').once('value')
+	const ads = fbVal.val()
+		console.log(ads)
 // val()
-const resultAds = []
-Object.keys(ads).forEach(key => {
-          const ad = ads[key]
-          resultAds.push(
-            new Ad(
-              	ad.title,
-              	ad.desc,
-				ad.ownerId,
-              	ad.src,
-              	ad.promo,
-              	key
-            )
-          )
-        })
-commit('loadAds', resultAds)
-
-      		commit('setLoading', false)
+	const resultAds = []
+		Object.keys(ads).forEach(key => {
+    const ad = ads[key]
+        resultAds.push(
+        new Ad(
+            ad.title,
+            ad.desc,
+			ad.ownerId,
+            ad.src,
+            ad.promo,
+            key
+        )
+    )
+    })
+		commit('loadAds', resultAds)
+      	commit('setLoading', false)
       	}  catch (error) {
       		commit('setError', error.message)
         	commit('setLoading', false)
         	throw error
       	}
     },
+	async updateAd ({commit},{title,desc,id}) {
+    	commit('clearError')
+      	commit('setLoading', true)
+    try {
+	await fb.database().ref("ads").child(id).update({ title, desc })
+      	commit('updateAd',{ title, desc, id})
+      	commit('setLoading', false)
+      	} catch (error) {
+      		commit('setError', error.message)
+        	commit('setLoading', false)
+        throw error
+      	}
+    }
 	},
 	getters: {
         ads(state) {
