@@ -36,8 +36,8 @@
           <v-flex xs>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="">Cancel</v-btn>
-              <v-btn color="success">Save</v-btn>
+              <v-btn text @click="onCancel">Cancel</v-btn>
+              <v-btn color="success" @click="onSave">Save</v-btn>
             </v-card-actions>
           </v-flex>
         </v-layout>
@@ -47,12 +47,30 @@
 </template>
 <script>
 export default {
+  props: ["ad"],
   data() {
     return {
       modal: false,
-      editedTitle: "",
-      editedDesc: "",
+      editedTitle: this.ad.title,
+      editedDesc: this.ad.desc,
     };
   },
+  methods: {
+	onCancel (){
+	this.editedTitle = this.ad.title
+	this.editedDesc = this.ad.desc
+	this.modal = false
+	},
+	onSave (){
+	if (this.editedTitle !== '' && this.editedDesc !== '') {
+	this.$store.dispatch('updateAd', {
+			title: this.editedTitle,
+			desc: this.editedDesc,
+			id: this.ad.id
+		})
+	this.modal = false
+	}
+	}
+} 
 };
 </script>
