@@ -37,12 +37,13 @@ await fb.database().ref(`/users/${ownerId}/orders`).push(order)
 			}
 		},
         async fetchOrders ({commit, getters}) {
-		commit('setLoaging', true)
+		commit('setLoading', true)
 		commit('clearError') 
 		const resultOrders = []
 		try {
 				const fbVal = await fb.database().ref(`/users/${getters.user.id}/orders`).once('value')
         const orders = fbVal.val()
+		console.log(orders)
         if (orders !== null) {
             Object.keys(orders).forEach(key => {
 	    const order = orders[key]
@@ -58,10 +59,10 @@ await fb.database().ref(`/users/${ownerId}/orders`).push(order)
 	})
 }
 	    commit('loadOrders', resultOrders)
-		commit('setLoaging', false)
+		commit('setLoading', false)
 } catch(error) {
 		commit('setError', error.message)
-		commit('setLoaging',false)
+		commit('setLoading',false)
 		throw error
 	}
 },

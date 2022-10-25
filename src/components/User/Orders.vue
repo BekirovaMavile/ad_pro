@@ -2,14 +2,14 @@
   <v-container>
     <v-layout row>
       <v-flex xs12 sm6 offset-sm3class="mt-5" v-if="loading">
-	<v-progress-circular 
-      			:size="70"
-      			:width="7"
-      			color="primary"
-      			indeterminate
-    			></v-progress-circular>
-	</v-flex>
-  <v-flex xs12 sm6 offset-sm3 v-else-if="!loading && orders.length !== 0">
+        <v-progress-circular
+          :size="70"
+          :width="7"
+          color="primary"
+          indeterminate
+        ></v-progress-circular>
+      </v-flex>
+      <v-flex xs12 sm6 offset-sm3 v-else-if="!loading && orders.length !== 0">
         <h1 class="text--secondary mb-3 mt-3">Orders</h1>
         <v-list subheader two-line flat>
           <v-list-item v-for="order in orders" :key="order.id">
@@ -31,8 +31,8 @@
         </v-list>
       </v-flex>
       <v-flex xs12 sm6 offset-sm3 v-else>
-<h1 class="text--secondary">You hane no orders</h1>
-</v-flex>
+        <h1 class="text--secondary">You hane no orders</h1>
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
@@ -52,23 +52,25 @@ export default {
   //   };
   // },
   computed: {
-loading () {
-		return this.$store.getters.loading
-	},orders () {
-	return this.$store.getters.order
-}
-},
+    loading() {
+      return this.$store.getters.loading;
+    },
+    orders() {
+      return this.$store.getters.orders;
+    },
+  },
   methods: {
     markDone(order) {
-	this.$store.dispatch('markOrderDone', order.id)
-	.then(() => {
-		order.done = true
-	})
-	.catch(() => {})
-}
+      this.$store
+        .dispatch("markOrderDone", order.id)
+        .then(() => {
+          order.done = true;
+        })
+        .catch(() => {});
+    },
   },
-  created () {
-	this.$store.dispatch('fetchOtders')
-}
+  created() {
+    this.$store.dispatch("fetchOrders");
+  },
 };
 </script>
